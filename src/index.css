@@ -1,4 +1,4 @@
-* {
+* :not(.p-menubar):not(.p-submenu-list):not(.p-menubar-root-list) {
   background-color: transparent;
   border-color: white;
   color: inherit;
@@ -14,7 +14,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Optionally, set the height of the container to fill the viewport */
+  height: 100vh;
 }
 
 .p-field {
@@ -29,4 +29,11 @@ body {
   background-color: #999;
   color: white;
   transform: scale(1.05);
+}
+
+.main {
+  padding: 2rem;
+}
+.p-jc-between {
+  justify-content: space-between;
 }
