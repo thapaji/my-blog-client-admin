@@ -1,0 +1,32 @@
+* {
+  background-color: transparent;
+  border-color: white;
+  color: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, rgb(252, 70, 107), rgb(63, 94, 251));
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Optionally, set the height of the container to fill the viewport */
+}
+
+.p-field {
+  margin-bottom: 1rem;
+}
+
+.p-inputtext::placeholder {
+  color: whitesmoke;
+}
+
+.p-button:hover {
+  background-color: #999;
+  color: white;
+  transform: scale(1.05);
+}
