@@ -4,51 +4,57 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Menubar } from "primereact/menubar";
 import { Fieldset } from "primereact/fieldset";
+import AddNew from "./AddNew";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
+  const [visible, setVisible] = useState(false);
+  // const clickAddNew = () => {}
+
   const menuItems = [
     {
       label: "New Post",
       icon: "pi pi-home",
+      className: "hover:text-white hover:bg-gray-500",
+      url: "/add",
+      onclick: (e) => {
+        e.preventDefault();
+        setVisible(true);
+      },
     },
     {
       label: "Profile",
       icon: "pi pi-star",
+      className: "hover:text-white hover:bg-gray-500",
+      url: "/profile",
     },
     {
       label: "Signout",
       icon: "pi pi-search",
+      className: "hover:text-white hover:bg-gray-500",
+      url: "./",
     },
   ];
 
   return (
     <>
-      <div className="p-menubar p-jc-between">
+      <div className="p-menubar justify-content-between">
         <h3>Hello Sujan</h3>
         <Menubar model={menuItems} />
       </div>
 
       <div className="main">
         {" "}
-        <Fieldset legend="Dashboard" className="p-d-flex p-p-4 p-shadow-2">
+        <Fieldset legend="Dashboard" className="p-4 shadow-8">
           <DataTable value={posts} paginator rows={10}>
-            <Column field="title" header="Title" sortable />
-            <Column field="author" header="Author" sortable />
-            <Column field="createdAt" header="Date Created" sortable />
-            <Column
-              header="Actions"
-              body={(rowData) => (
-                <>
-                  <Button icon="pi pi-pencil" className="p-button-rounded p-button-warning" />
-                  <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" />
-                </>
-              )}
-            />
+            <Column field="sn" header="S.N." sortable />
+            <Column field="description" header="Description" sortable />
+            <Column field="date" header="Date Created" sortable />
+            <Column field="status" header="Status" sortable />
           </DataTable>
-          <Button label="Create New Post" icon="pi pi-plus" className="p-button-success" />
         </Fieldset>
       </div>
+      <AddNew visible={visible} setVisible={setVisible} />
     </>
   );
 };

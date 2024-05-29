@@ -20,7 +20,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <Fieldset legend="Login" className="p-d-flex p-p-4 p-shadow-2 p-border p-border-white">
+      <Fieldset legend="Login" className="shadow-8">
         <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
           <div className="p-field">
             <label htmlFor="username">Username</label>
