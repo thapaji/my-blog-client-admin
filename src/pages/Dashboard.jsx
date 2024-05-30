@@ -16,9 +16,7 @@ const Dashboard = () => {
       label: "New Post",
       icon: "pi pi-home",
       className: "hover:text-white hover:bg-gray-500",
-      url: "/add",
-      onclick: (e) => {
-        e.preventDefault();
+      command: (e) => {
         setVisible(true);
       },
     },
@@ -38,9 +36,9 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="p-menubar justify-content-between">
+      <div className="p-menubar justify-content-between px-5 shadow-8">
         <h3>Hello Sujan</h3>
-        <Menubar model={menuItems} />
+        <Menubar model={menuItems} className="border-none" />
       </div>
 
       <div className="main">

@@ -19,16 +19,16 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="flex justify-content-center align-items-center h-screen">
       <Fieldset legend="Login" className="shadow-8">
         <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
           <div className="p-field">
             <label htmlFor="username">Username</label>
-            <InputText id="username" name="username" placeholder="Example:mail.mail.com" />
+            <InputText id="username" name="username" placeholder="mail@mail.com" />
           </div>
           <div className="p-field">
             <label htmlFor="password">Password</label>
-            <Password name="password" placeholder="Password" feedback={false} toggleMask/>
+            <Password name="password" placeholder="Password" feedback={false} toggleMask />
           </div>
           <Button label="Login" icon="pi pi-sign-in" />
         </form>
