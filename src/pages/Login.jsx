@@ -4,6 +4,8 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 import { Fieldset } from "primereact/fieldset";
+import { RiLoginBoxLine } from "react-icons/ri"; // Import login icon from React Icons library
+import axios from "axios"; // Don't forget to import axios
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -30,7 +32,7 @@ const Login = () => {
             <label htmlFor="password">Password</label>
             <Password name="password" placeholder="Password" feedback={false} toggleMask />
           </div>
-          <Button label="Login" icon="pi pi-sign-in" />
+          <Button label="Login" icon={<RiLoginBoxLine />} />{" "}
         </form>
       </Fieldset>
     </div>
