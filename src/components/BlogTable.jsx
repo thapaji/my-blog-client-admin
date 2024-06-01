@@ -23,10 +23,20 @@ export const BlogTable = () => {
     return date.toISOString().split("T")[0];
   };
 
+  const handleRowClick = (id) => {
+    console.log(id);
+  };
+
   return (
     <Fieldset legend="Dashboard" className="p-4 shadow-8">
-      <DataTable value={blogs} paginator rows={10}>
-        {/* <Column field="sn" header="S.N." sortable /> */}
+      <DataTable
+        value={blogs}
+        paginator
+        rows={10}
+        className="clickable-row"
+        onRowClick={(event) => handleRowClick(event.data._id)}
+      >
+        <Column header="#" body={(data, options) => options.rowIndex + 1}></Column>
         <Column field="title" header="Title" sortable />
         <Column field="category" header="Category" sortable />
         <Column field="content" header="Description" body={(data) => trimContent(data.content)} />
@@ -41,7 +51,7 @@ export const BlogTable = () => {
           header="Status"
           sortable
           body={(data) => (
-            <span className= {data.isActive ? "active font-bold" : "inactive"}>
+            <span className={data.isActive ? "active font-bold" : "inactive"}>
               {data.isActive ? "Active" : "Inactive"}
             </span>
           )}

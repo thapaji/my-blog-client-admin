@@ -18,3 +18,13 @@ body {
 .inactive {
   color: red;
 }
+
+.p-datatable-tbody tr {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.p-datatable-tbody tr:hover {
+  transform: scale(1.02);
+  background-color: #f5f5f5;
+}
