@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from '../features/users/userSlice';
-// import bookReducer from '../features/books/bookSlice';
+import blogReducer from '../features/blogs/blogSlice';
 
 export default configureStore({
     reducer: {
         /*********** Slices ************/
         userInfo: userReducer,
-        // bookInfo: bookReducer,
+        blogPosts: blogReducer,
         /*********** Slices ************/
     },
 })

@@ -1,14 +1,21 @@
 import { Menubar } from "primereact/menubar";
 import React from "react";
 import { RiAddLine, RiHomeLine, RiLogoutBoxLine, RiUserLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../features/users/userSlice";
+import { useDispatch } from "react-redux";
 
 export const MenuBar = ({ visible, setVisible }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleNewPostClick = () => {
     setVisible(true);
   };
 
   const handleSignoutClick = () => {
-    // Handle signout click
+    dispatch(setUser({}));
+    navigate("/");
   };
 
   const menuItems = [
@@ -20,17 +27,17 @@ export const MenuBar = ({ visible, setVisible }) => {
     {
       label: "Home",
       icon: <RiHomeLine />,
-      url: "/dashboard",
+      command: () => navigate("/dashboard"),
     },
     {
       label: "Profile",
       icon: <RiUserLine />,
-      url: "/profile",
+      command: () => navigate("/profile"),
     },
     {
       label: "Signout",
       icon: <RiLogoutBoxLine />,
-      url: "/",
+      command: handleSignoutClick,
     },
   ];
 
