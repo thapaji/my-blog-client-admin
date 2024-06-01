@@ -5,7 +5,7 @@ const rootAPI = import.meta.env.VITE_APP_ROOTAPI;
 const blogEp = rootAPI + "/blogs";
 
 export const fetchAllBlogs = async () => {
-    const axiosObj = { method: 'GET', url: blogEp, isPrivate: true }
+    const axiosObj = { method: 'GET', url: blogEp}
     return await apiProcessor(axiosObj);
 };
 
