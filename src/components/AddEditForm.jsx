@@ -18,13 +18,12 @@ import { fetchSingleBlog, postNewBlog, updateBlogPost } from "../features/blogs/
 import { toast } from "react-toastify";
 
 export const AddEditForm = ({ add = true, id }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, reset, handleSubmit } = useForm();
   const { clickedBlog } = useSelector((state) => state.blogPosts);
 
-  // useEffect(() => {
-  //   if (!add) {
-  //   }
-  // }, []);
+  useEffect(() => {
+    reset(clickedBlog || {});
+  }, [clickedBlog, reset]);
 
   const onSubmit = async (data) => {
     const { status, message } = await (add
@@ -48,7 +47,7 @@ export const AddEditForm = ({ add = true, id }) => {
               id="title"
               name="title"
               placeholder="Enter Blog Title"
-              defaultValue={clickedBlog?.title || ""}
+              // defaultValue={clickedBlog?.title || ""}
               {...register("title")}
             />
           </div>
@@ -65,7 +64,7 @@ export const AddEditForm = ({ add = true, id }) => {
               id="category"
               name="category"
               placeholder="Enter Blog Category"
-              defaultValue={clickedBlog?.category || ""}
+              // defaultValue={clickedBlog?.category || ""}
               {...register("category")}
             />
           </div>
@@ -82,7 +81,7 @@ export const AddEditForm = ({ add = true, id }) => {
               id="tags"
               name="tags"
               placeholder="Enter Blog Hash Tags separated by comma"
-              defaultValue={clickedBlog?.tags || ""}
+              // defaultValue={clickedBlog?.tags || ""}
               {...register("tags")}
             />
           </div>
@@ -98,7 +97,7 @@ export const AddEditForm = ({ add = true, id }) => {
               name="post"
               placeholder="Enter Blog Post"
               rows={15}
-              defaultValue={clickedBlog?.content || ""}
+              // defaultValue={clickedBlog?.content || ""}
               {...register("content")}
             />
           </div>
