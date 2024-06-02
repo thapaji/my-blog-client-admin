@@ -19,7 +19,12 @@ export const fetchSingleBlog = async (_id) => {
     return await apiProcessor(axiosObj);
 };
 
-export const updateBlogPost = async (id,blogObj) => {
+export const updateBlogPost = async (id, blogObj) => {
     const axiosObj = { method: 'PUT', url: blogEp + '/' + id, data: blogObj, isPrivate: true };
+    return await apiProcessor(axiosObj);
+};
+
+export const deleteBlog = async (ids) => {
+    const axiosObj = { method: 'DELETE', url: blogEp, data: { ids }, isPrivate: true };
     return await apiProcessor(axiosObj);
 };

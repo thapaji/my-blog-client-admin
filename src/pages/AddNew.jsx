@@ -13,7 +13,7 @@ const AddNew = ({ visible, setVisible }) => {
         setVisible(false);
       }}
     >
-      <AddEditForm />
+      <AddEditForm setVisible={setVisible} />
     </Dialog>
   );
 };

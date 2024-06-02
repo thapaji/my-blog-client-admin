@@ -21,7 +21,7 @@ const EditBlog = ({ showEdit, setShowEdit, id }) => {
         onClose();
       }}
     >
-      <AddEditForm add={false} id={id} />
+      <AddEditForm add={false} id={id} setVisible={onClose} />
     </Dialog>
   );
 };

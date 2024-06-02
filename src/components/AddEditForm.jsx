@@ -1,9 +1,10 @@
+import React, { useEffect } from "react";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
-import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import {
   RiEdit2Line,
   RiRefreshLine,
@@ -13,24 +14,54 @@ import {
   RiPriceTag3Line,
   RiFolderLine,
   RiFileTextLine,
+  RiCloseLine,
+  RiDeleteBin6Line,
 } from "react-icons/ri";
 import { fetchSingleBlog, postNewBlog, updateBlogPost } from "../features/blogs/blogAxios";
-import { toast } from "react-toastify";
+import { deleteBlogPost, getAllBlogs } from "../features/blogs/blogAction";
 
-export const AddEditForm = ({ add = true, id }) => {
-  const { register, reset, handleSubmit } = useForm();
+export const AddEditForm = ({ add = true, id, setVisible }) => {
+  const { register, reset, setValue, handleSubmit } = useForm({
+    defaultValues: {},
+  });
   const { clickedBlog } = useSelector((state) => state.blogPosts);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    reset(clickedBlog || {});
-  }, [clickedBlog, reset]);
+    reset(add ? {} : clickedBlog || {});
+  }, [add, clickedBlog, reset]);
 
   const onSubmit = async (data) => {
     const { status, message } = await (add
       ? postNewBlog(data)
       : updateBlogPost(clickedBlog._id, data));
     toast[status](message);
-    //close the modal
+    setVisible(false);
+    dispatch(getAllBlogs());
+  };
+
+  const handleResetAdd = () => {
+    setValue("title", "");
+    setValue("category", "");
+    setValue("tags", "");
+    setValue("content", "");
+  };
+
+  const handleResetEdit = () => {
+    reset(clickedBlog || {});
+  };
+
+  const handleActivate = () => {
+    setValue("isActive", !clickedBlog.isActive);
+    handleSubmit(onSubmit)();
+  };
+
+  const handleDelete = () => {
+    const confirmed = window.confirm("Are you sure you want to delete this post?");
+    if (confirmed) {
+      dispatch(deleteBlogPost(clickedBlog._id));
+      setVisible(false);
+    }
   };
 
   return (
@@ -47,7 +78,6 @@ export const AddEditForm = ({ add = true, id }) => {
               id="title"
               name="title"
               placeholder="Enter Blog Title"
-              // defaultValue={clickedBlog?.title || ""}
               {...register("title")}
             />
           </div>
@@ -64,13 +94,10 @@ export const AddEditForm = ({ add = true, id }) => {
               id="category"
               name="category"
               placeholder="Enter Blog Category"
-              // defaultValue={clickedBlog?.category || ""}
               {...register("category")}
             />
           </div>
         </div>
-
-        {/* Tags Field */}
         <div className="p-field">
           <label htmlFor="tags">Tags</label>
           <div className="p-inputgroup">
@@ -81,7 +108,6 @@ export const AddEditForm = ({ add = true, id }) => {
               id="tags"
               name="tags"
               placeholder="Enter Blog Hash Tags separated by comma"
-              // defaultValue={clickedBlog?.tags || ""}
               {...register("tags")}
             />
           </div>
@@ -97,13 +123,10 @@ export const AddEditForm = ({ add = true, id }) => {
               name="post"
               placeholder="Enter Blog Post"
               rows={15}
-              // defaultValue={clickedBlog?.content || ""}
               {...register("content")}
             />
           </div>
         </div>
-
-        {/* Buttons based on add state */}
         {add ? (
           <div className="flex justify-content-between gap-5">
             <Button type="submit" icon={<RiAddLine />} label="Add" />
@@ -112,7 +135,7 @@ export const AddEditForm = ({ add = true, id }) => {
               severity="info"
               icon={<RiRefreshLine />}
               label="Reset"
-              onClick={() => {}}
+              onClick={handleResetAdd}
             />
           </div>
         ) : (
@@ -120,17 +143,24 @@ export const AddEditForm = ({ add = true, id }) => {
             <Button type="submit" icon={<RiSaveLine />} label="Update" />
             <Button
               type="button"
-              severity="success"
-              icon={<RiCheckLine />}
-              label="Activate"
-              onClick={() => {}}
+              severity={clickedBlog.isActive ? "danger" : "success"}
+              icon={clickedBlog.isActive ? <RiCloseLine /> : <RiCheckLine />}
+              label={clickedBlog.isActive ? "Deactivate" : "Activate"}
+              onClick={handleActivate}
+            />
+            <Button
+              type="button"
+              severity="danger"
+              icon={<RiDeleteBin6Line />}
+              label="Delete"
+              onClick={handleDelete}
             />
             <Button
               type="button"
               severity="info"
               icon={<RiRefreshLine />}
               label="Reset"
-              onClick={() => {}}
+              onClick={handleResetEdit}
             />
           </div>
         )}

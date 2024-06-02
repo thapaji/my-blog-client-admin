@@ -1,4 +1,5 @@
-import { fetchAllBlogs, fetchSingleBlog } from "./blogAxios";
+import { toast } from "react-toastify";
+import { fetchAllBlogs, fetchSingleBlog, deleteBlog } from "./blogAxios";
 import { setBlogs, setClickedBlog } from "./blogSlice";
 
 export const getAllBlogs = () => async (dispatch) => {
@@ -9,5 +10,12 @@ export const getAllBlogs = () => async (dispatch) => {
 
 export const getSingleBlog = (id) => async (dispatch) => {
     const { status, blog } = await fetchSingleBlog(id);
-    dispatch(setClickedBlog(blog))
+    dispatch(setClickedBlog(blog));
+    getAllBlogs();
+}
+
+export const deleteBlogPost = (id) => async (dispatch) => {
+    const { status, message } = await deleteBlog([id]);
+    toast[status](message);
+    dispatch(getAllBlogs());
 }
