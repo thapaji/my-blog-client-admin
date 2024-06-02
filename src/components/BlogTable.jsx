@@ -3,12 +3,13 @@ import { DataTable } from "primereact/datatable";
 import { Fieldset } from "primereact/fieldset";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBlogs } from "../features/blogs/blogAction";
+import { getAllBlogs, getSingleBlog } from "../features/blogs/blogAction";
+import EditBlog from "../pages/EditBlog";
 
 export const BlogTable = () => {
-  // const [posts, setPosts] = useState([]);
+  const [showEdit, setShowEdit] = useState(false);
   const { blogs } = useSelector((state) => state.blogPosts);
-  // console.log(blogs);
+  const [id, setId] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,8 +24,10 @@ export const BlogTable = () => {
     return date.toISOString().split("T")[0];
   };
 
-  const handleRowClick = (id) => {
-    console.log(id);
+  const handleRowClick = (clickedId) => {
+    setId(clickedId);
+    dispatch(getSingleBlog(clickedId));
+    setShowEdit(true);
   };
 
   return (
@@ -57,6 +60,7 @@ export const BlogTable = () => {
           )}
         />
       </DataTable>
+      <EditBlog showEdit={showEdit} setShowEdit={setShowEdit} id={id} />
     </Fieldset>
   );
 };
